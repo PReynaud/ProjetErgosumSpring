@@ -6,13 +6,6 @@
     padding-right: 50px;
 }
 
-#footer{
-    bottom: 0;
-    margin-bottom: 0%;
-    width: 100%;
-    position: fixed;
-}
-
 #conteneurFooter{
     margin-top: 10px;
     margin-left: auto;
@@ -28,4 +21,9 @@
 .table-bordered>thead>tr>td,
 .table-bordered>thead>tr>th{
     text-align: center;
+}
+
+.first-row{
+    margin-top: 55px;
+    margin-bottom: 55px;
 }

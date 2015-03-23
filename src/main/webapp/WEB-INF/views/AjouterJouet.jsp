@@ -19,7 +19,7 @@
 <body>
 <jsp:include page='header.jsp' flush="true"/>
 
-<div class="row">
+<div class="row first-row">
     <h1>Formulaire d'ajout d'un jouet</h1>
 
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >

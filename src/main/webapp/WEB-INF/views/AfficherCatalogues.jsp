@@ -4,7 +4,8 @@
     <title></title>
 </head>
 <body>
-<h1>Afficher catalogues</h1>
-
+<div class="row first-row">
+    <h1>Afficher catalogues</h1>
+</div>
 </body>
 </html>

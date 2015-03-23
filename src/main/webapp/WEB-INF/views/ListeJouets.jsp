@@ -19,6 +19,7 @@
 <body>
 <jsp:include page='header.jsp' flush="true"/>
 
+<div class="row first-row">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -42,6 +43,7 @@
             </tbody>
         </table>
     </div>
+</div>
 <jsp:include page='footer.jsp' flush="true"/>
 </body>
 </html>

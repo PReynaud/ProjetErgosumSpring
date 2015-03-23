@@ -18,13 +18,10 @@
 <body>
 <jsp:include page='header.jsp' flush="true"/>
 
-<div class="row">
+<div class="row first-row">
     <h1>Gestion des jouets</h1>
-
-    <h2> Nous sommes le <%= DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(new Date()) %>
-    </h2>
+    <h2> Nous sommes le <%= DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(new Date()) %></h2>
     <h5>Gestion des jouets à partir d'une base de données.</h5>
-
 </div>
 <jsp:include page='footer.jsp' flush="true"/>
 
