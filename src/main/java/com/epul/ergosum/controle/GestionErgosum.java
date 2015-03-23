@@ -59,11 +59,11 @@ public class GestionErgosum {
             rs = DialogueBd.lecture(request);
 
             while (index < rs.size()) {
-                Categorie unT = new Categorie();
-                unT.setCodecateg(rs.get(index + 0).toString());
-                unT.setLibcateg(rs.get(index + 1).toString());
+                Categorie unC = new Categorie();
+                unC.setCodecateg(rs.get(index + 0).toString());
+                unC.setLibcateg(rs.get(index + 1).toString());
                 index = index + 2;
-                mesCategories.add(unT);
+                mesCategories.add(unC);
             }
             return mesCategories;
 
@@ -97,8 +97,27 @@ public class GestionErgosum {
         }
     }
 
-    public Object listerTousLesCatalogues() {
-        return null;
+    public List<Catalogue> listerTousLesCatalogues() throws MonException {
+        List<Object> rs;
+        List<Catalogue> mesCatalogues = new ArrayList<Catalogue>();
+        String request = "SELECT * FROM catalogue;";
+        int index = 0;
+        try {
+            rs = DialogueBd.lecture(request);
+
+            while (index < rs.size()) {
+                Catalogue unC = new Catalogue();
+                unC.setAnnee(Integer.parseInt(rs.get(index + 0).toString()));
+                unC.setQuantiteDistribuee(Integer.parseInt(rs.get(index + 1).toString()));
+                index = index + 2;
+                mesCatalogues.add(unC);
+            }
+            return mesCatalogues;
+
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 
     public Jouet rechercherJouet(String id) {
@@ -126,8 +145,18 @@ public class GestionErgosum {
 
     }
 
-    public void ajouter(Jouet unJouet) {
+    public void ajouter(Jouet unJouet) throws MonException {
+        try {
+            String mysql = "";
 
+            mysql = "INSERT INTO jouet ";
+            mysql = mysql + "VALUES( \'" + unJouet.getNumero() + "\', \'" + unJouet.getCategorie() + "\', ";
+            mysql = mysql + "\'" + unJouet.getTrancheage() + "\', \'" + unJouet.getLibelle() + "\')";
+            System.out.println(mysql);
+            DialogueBd.insertionBD(mysql);
+        } catch (MonException e) {
+            throw e;
+        }
     }
 
 

@@ -23,28 +23,27 @@
     <h1>Formulaire d'ajout d'un jouet</h1>
 
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
-    <form method="post" action="Controleur" onsubmit="return verif();">
+    <form method="get" action="sauverJouet">
         <input type="hidden" name="type" value="ajout"  id="type"/>
-        <input type="hidden" name="action" value="ajoutStage" />
         <div class="row">
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
                 <div class="col-sm-2">
-                    <input type="text" name="id" value="" id="id" placeholder="Numéro du jouet" required/>
+                    <input type="text" name="id" id="id" placeholder="Numéro du jouet" required/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">Libellé</div>
                 <div class="col-sm-2">
-                    <input type="text" name="libelle" value="" id="libelle" placeholder="Libellé du jouet" required/>
+                    <input type="text" name="libelle" id="libelle" placeholder="Libellé du jouet" required/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">Catégorie</div>
                 <div class="col-sm-2">
-                    <select name="categories" id="categories">
-                        <c:forEach items="${categorie}" var="item">
-                            <option value="${item.getLibcateg()}">${item.getLibcateg()}</option>
+                    <select name="codecateg" id="codecateg">
+                        <c:forEach items="${categories}" var="item">
+                            <option value="${item.getCodecateg()}">${item.getLibcateg()}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -52,7 +51,7 @@
             <div class="row">
                 <div class="col-sm-2">Tranche d'âge</div>
                 <div class="col-sm-2">
-                    <select name="tranches" id="tranches">
+                    <select name="codetranche" id="codetranche">
                         <c:forEach items="${tranches}" var="item">
                             <option value="${item.getCodetranche()}">${item.getCodetranche()}</option>
                         </c:forEach>
@@ -62,7 +61,7 @@
             <div class="row">
                 <div class="col-sm-2">Catalogues</div>
                 <div class="col-sm-2">
-                    <select name="catalogues" id="catalogues">
+                    <select name="codecatalogue" id="codecatalogue">
                         <c:forEach items="${catalogues}" var="item">
                             <option value="${item.getAnnee()}">${item.getAnnee()}</option>
                         </c:forEach>
@@ -70,10 +69,17 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-2">Quantités distribuées</div>
+                <div class="col-sm-2">
+                    <input type="text" name="quantiteDistribution" id="quantiteDistribution" placeholder="Quantité distribuée" required/>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-offset-2 col-sm-2">
                     <input type="submit" name="ajouter" value="Ajouter"/>
                 </div>
             </div>
+
         </div>
     </form>
 </div>

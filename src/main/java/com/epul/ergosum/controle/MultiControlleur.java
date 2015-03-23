@@ -81,6 +81,7 @@ public class MultiControlleur extends MultiActionController {
             request.setAttribute("tranches", unService.listerToutesLesTranches());
             request.setAttribute("catalogues", unService.listerTousLesCatalogues());
 
+
             destinationPage = "/AjouterJouet";
         }
 
@@ -163,7 +164,6 @@ public class MultiControlleur extends MultiActionController {
             GestionErgosum unService = new GestionErgosum();
             if (unService != null)
             {
-
                 // fabrication du jouet à partir des paramètres de la requête
                 // Si le jouet n'est pas à créer, il faut le récupérer de la session
                 // courante
@@ -178,8 +178,6 @@ public class MultiControlleur extends MultiActionController {
                 }
                 unJouet.setNumero(request.getParameter("id"));
                 unJouet.setLibelle(request.getParameter("libelle"));
-                System.out.println("codecateg="+request.getParameter("codecateg"));
-                System.out.println("codetranche="+request.getParameter("codetranche"));
                 Categorie uneCateg = unService.rechercherCategorie(request.getParameter("codecateg"));
                 unJouet.setCategorie(uneCateg);
 
@@ -192,9 +190,7 @@ public class MultiControlleur extends MultiActionController {
                     unService.modifier(unJouet);
                 } else
                 {
-
                     Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
-                    System.out.println("Je suis à la quantité ");;
                     int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
                     if (quantiteDistribution>0)
                     {
@@ -205,7 +201,6 @@ public class MultiControlleur extends MultiActionController {
                 }
                 request.setAttribute("mesJouets", unService.listerTousLesJouets(0, 0));
                 destinationPage = "/ListeJouets";
-
             }
         } catch (Exception e)
         {
