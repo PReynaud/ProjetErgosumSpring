@@ -20,6 +20,14 @@
 <jsp:include page='header.jsp' flush="true"/>
 
 <div class="row first-row">
+    <div class="circle-buttons">
+        <div class="circle-button red">
+            <span class="glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="circle-button green">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -28,6 +36,7 @@
                 <th>Libellé</th>
                 <th>Code catégorie</th>
                 <th>Code tranche d'âge</th>
+                <th>Modifier/Supprimer</th>
             </tr>
             </thead>
 
@@ -38,6 +47,9 @@
                     <td>${item.libelle}</td>
                     <td>${item.getCategorie().getCodecateg()}</td>
                     <td>${item.getTrancheage().getCodetranche()}</td>
+                    <td>
+                        <div class="checkbox"><input type="checkbox" value="${item.numero}"></div>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

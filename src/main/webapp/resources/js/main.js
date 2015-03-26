@@ -35,3 +35,33 @@ jQuery(function($){
         yearRange: "-100:+00"
     });
 })
+
+function showDeleteButton(){
+    var listBoxes = $(":checkbox");
+    var res = false;
+    var numberBoxes = 0;
+    for (box in listBoxes){
+        if(listBoxes[box].checked){
+            numberBoxes ++;
+            res = true;
+        }
+    }
+    if(res){
+        $(".red").css("visibility", "visible");
+    }
+    if(res && numberBoxes === 1){
+        $(".green").css("visibility", "visible");
+    }
+    if(res && numberBoxes !== 1){
+        $(".green").css("visibility", "hidden");
+    }
+    if(!res)
+    {
+        $(".red").css("visibility", "hidden");
+        $(".green").css("visibility", "hidden");
+    }
+}
+
+$("document").ready(function(){
+    $(":checkbox").change(showDeleteButton);
+});
