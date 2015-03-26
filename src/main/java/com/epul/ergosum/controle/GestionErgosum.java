@@ -256,15 +256,61 @@ public class GestionErgosum {
     }
 
 
-    public void effacer(String[] ids) {
-
+    public void effacer(String[] ids)throws MonException{
+        try {
+            for (String id : ids)
+                DialogueBd.insertionBD("DELETE FROM jouet WHERE numero ='"+id+"';");
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 
-    public Object listerCatalogueQuantites(int anneeDebut, int nbAnnees) {
-        return null;
+    public Object listerCatalogueQuantites(int anneeDebut, int nbAnnees) throws MonException{
+        List<Object> rc;
+        List<Catalogue> mesCatalogues = new ArrayList<Catalogue>();
+        int annee_fin = anneeDebut + nbAnnees;
+        String request = "SELECT * FROM catalogue where annee>='" + anneeDebut + "' AND annee<='"+annee_fin+"';";
+        int index = 0;
+        try {
+            rc = DialogueBd.lecture(request);
+
+            while (index < rc.size()) {
+                Catalogue monCatalogue = new Catalogue();
+                monCatalogue.setAnnee(Integer.parseInt(rc.get(index).toString()));
+                monCatalogue.setQuantiteDistribuee(Integer.parseInt(rc.get(index + 1).toString()));
+                index = index + 2;
+                mesCatalogues.add(monCatalogue);
+            }
+            return mesCatalogues;
+
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 
-    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee) {
-        return null;
+    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee)throws MonException {
+        HashMap<Categorie,Integer> res = new HashMap<Categorie, Integer>();
+        List<Object> rc;
+        int index = 0;
+        String request = "SELECT DISTINCT codecateg, b.quantiteDistribuee " +
+                         "FROM categorie NATURAL JOIN (" +
+                                " SELECT codecateg, a.quantiteDistribuee " +
+                                "FROM jouet natural join ( " +
+                                    "SELECT numero, quantiteDistribuee " +
+                                    "FROM comporte natural join catalogue where annee="+annee+") a) b;";
+        try {
+            Catalogue monCatalogue = rechercherCatalogue(annee);
+            rc = DialogueBd.lecture(request);
+            while (index < rc.size()) {
+                res.put(rechercherCategorie(rc.get(index).toString()), Integer.parseInt(rc.get(index).toString()));
+                index+=2;
+            }
+            return res;
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 }
