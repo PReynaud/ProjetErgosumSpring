@@ -8,12 +8,12 @@
     <title>Affichage de tous les jouets</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/jquery-ui.css">
     <link rel="stylesheet" href="resources/css/main.css">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
     <script src="resources/js/main.js" type="text/javascript"></script>
+    <script src="resources/js/button.js" type="text/javascript"></script>
 </head>
 </head>
 <body>

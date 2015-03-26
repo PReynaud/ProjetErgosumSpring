@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Ajout d'un jouet</title>
+    <title>Modifier un jouet</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/main.css">
@@ -19,7 +19,7 @@
 <jsp:include page='header.jsp' flush="true"/>
 
 <div class="row first-row">
-    <h1>Formulaire d'ajout d'un jouet</h1>
+    <h1>Formulaire de modification d'un jouet</h1>
 
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
     <form method="get" action="sauverJouet">

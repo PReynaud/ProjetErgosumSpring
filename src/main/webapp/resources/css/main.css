@@ -33,7 +33,6 @@
 }
 
 .circle-button{
-    visibility: hidden;
     height: 56px;
     width: 56px;
     -webkit-border-radius:28px;
@@ -59,7 +58,7 @@
     -moz-border-radius: 30px;
     border-radius: 30px;
     position: fixed;
-    bottom: 58px;
+    /*bottom: 58px;*/
     right: 22px;
 }
 
@@ -71,14 +70,13 @@
 
 .red{
     background-color: #d90800;
+    visibility: hidden;
 }
 
 .green {
     background-color: #16a103;
-    bottom: 130px;
-}
-
-.red:hover{
+    /*bottom: 130px;*/
+    visibility: hidden;
 }
 
 .green:hover{
