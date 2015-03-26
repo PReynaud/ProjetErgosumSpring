@@ -47,21 +47,53 @@ function showDeleteButton(){
         }
     }
     if(res){
-        $(".red").css("visibility", "visible");
+        showRed();
     }
     if(res && numberBoxes === 1){
-        $(".green").css("visibility", "visible");
+        showGreen();
     }
     if(res && numberBoxes !== 1){
-        $(".green").css("visibility", "hidden");
+        hideGreen();
     }
     if(!res)
     {
-        $(".red").css("visibility", "hidden");
-        $(".green").css("visibility", "hidden");
+        hideRed();
+        hideGreen();
     }
 }
 
 $("document").ready(function(){
     $(":checkbox").change(showDeleteButton);
 });
+
+function showRed(){
+    $(".red").css("visibility", "visible");
+    $(".red").animate({
+        bottom: "60"
+    }, 100, null);
+};
+
+function showGreen(){
+    $(".green").css("visibility", "visible");
+    $(".green").animate({
+        bottom: "130"
+    }, 100, null);
+};
+
+function hideRed(){
+    /*$(".red").css("visibility", "hidden");*/
+    $(".red").animate({
+        bottom: "0"
+    }, 100, function() {
+        $(".red").css("visibility", "hidden");
+    });
+};
+
+function hideGreen(){
+    /*$(".green").css("visibility", "hidden");*/
+    $(".green").animate({
+        bottom: "0"
+    }, 100, function() {
+        $(".green").css("visibility", "hidden");
+    });
+};
