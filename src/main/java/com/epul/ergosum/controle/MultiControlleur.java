@@ -199,7 +199,7 @@ public class MultiControlleur extends MultiActionController {
                     }
                     unService.ajouter(unJouet);
                 }
-                request.setAttribute("mesJouets", unService.listerTousLesJouets(0, 0));
+                request.setAttribute("mesJouets", unService.listerTousLesJouets());
                 destinationPage = "/ListeJouets";
             }
         } catch (Exception e)

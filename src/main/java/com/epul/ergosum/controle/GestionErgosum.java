@@ -238,15 +238,15 @@ public class GestionErgosum {
 
     public void ajouter(Jouet unJouet) throws MonException{
         StringBuilder request = new StringBuilder();
-        request.append("INSERT INTO jouet (numero,codecateg,codetranche,libelle) values (");
+        request.append("INSERT INTO jouet (numero,codecateg,codetranche,libelle) values ('");
         request.append(unJouet.getNumero());
-        request.append(", ");
+        request.append("', '");
         request.append(unJouet.getCategorie().getCodecateg());
-        request.append(", ");
+        request.append("', '");
         request.append(unJouet.getTrancheage().getCodetranche());
-        request.append(", ");
+        request.append("', '");
         request.append(unJouet.getLibelle());
-        request.append(");");
+        request.append("');");
         try {
             DialogueBd.insertionBD(request.toString());
         } catch (MonException e) {
