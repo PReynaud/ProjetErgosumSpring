@@ -1,10 +1,7 @@
 package com.epul.ergosum.controle;
 
 import com.epul.ergosum.meserreurs.MonException;
-import com.epul.ergosum.metier.Catalogue;
-import com.epul.ergosum.metier.Categorie;
-import com.epul.ergosum.metier.Jouet;
-import com.epul.ergosum.metier.Trancheage;
+import com.epul.ergosum.metier.*;
 import com.epul.ergosum.persistance.DialogueBd;
 
 import java.text.ParseException;
@@ -96,7 +93,7 @@ public class GestionErgosum {
         }
     }
 
-    public Object listerTousLesCatalogues() throws MonException {
+    public List<Catalogue> listerTousLesCatalogues() throws MonException {
         List<Object> rc;
         List<Catalogue> mesCatalogues = new ArrayList<Catalogue>();
         String request = "SELECT * FROM catalogue;";
@@ -280,6 +277,29 @@ public class GestionErgosum {
                 monCatalogue.setAnnee(Integer.parseInt(rc.get(index).toString()));
                 monCatalogue.setQuantiteDistribuee(Integer.parseInt(rc.get(index + 1).toString()));
                 index = index + 2;
+                mesCatalogues.add(monCatalogue);
+            }
+            return mesCatalogues;
+
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public List<CatalogueQuantites> listerCatalogueQuantites() throws MonException{
+        List<Object> rc;
+        List<CatalogueQuantites> mesCatalogues = new ArrayList<CatalogueQuantites>();
+        String request1 = "SELECT c.annee, c.numero, c.quantite, ca.quantiteDistribuee FROM comporte c JOIN catalogue ca ON c.annee=ca.annee";
+        int index = 0;
+        try {
+            rc = DialogueBd.lecture(request1);
+            while (index < rc.size()) {
+                CatalogueQuantites monCatalogue = new CatalogueQuantites();
+                monCatalogue.setId(rc.get(index).toString());
+                monCatalogue.setQuantite(rc.get(index + 2).toString());
+                monCatalogue.setQuantiteDistribuee(rc.get(index + 3).toString());
+                index = index + 4;
                 mesCatalogues.add(monCatalogue);
             }
             return mesCatalogues;

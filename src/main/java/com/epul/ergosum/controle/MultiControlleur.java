@@ -243,9 +243,14 @@ public class MultiControlleur extends MultiActionController {
         String id = request.getParameter("id");
         GestionErgosum unService = new GestionErgosum();
 
-        // preparation de la liste
-        request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
-        destinationPage = "/AfficherCatalogues";
+        if(request.getParameter("anneeDebut") == null){
+            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites());
+        }
+        else{
+            // preparation de la liste
+            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
+        }
+       destinationPage = "/AfficherCatalogues";
 
         return new ModelAndView(destinationPage);
     }
