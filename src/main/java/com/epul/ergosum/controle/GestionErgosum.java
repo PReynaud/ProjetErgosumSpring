@@ -282,9 +282,18 @@ public class GestionErgosum {
 
 
     public void effacer(String[] ids)throws MonException{
+        List<Object> rc;
+        int index = 0;
         try {
-            for (String id : ids)
-                DialogueBd.insertionBD("DELETE FROM jouet WHERE numero ='"+id+"';");
+            for (String id : ids) {
+                rc = DialogueBd.lecture("SELECT annee, quantite from comporte where numero='"+id+"';");
+                while (index<rc.size()){
+                    DialogueBd.insertionBD("UPDATE catalogue SET quantiteDistribuee=quantiteDistribuee-"+rc.get(index+1).toString()+" WHERE annee =" + rc.get(index).toString() + ";");
+                    index+=2;
+                }
+                DialogueBd.insertionBD("DELETE FROM comporte WHERE numero = '" + id + "';");
+                DialogueBd.insertionBD("DELETE FROM jouet WHERE numero ='" + id + "';");
+            }
         } catch (MonException e) {
             System.out.println(e.getMessage());
             throw e;
