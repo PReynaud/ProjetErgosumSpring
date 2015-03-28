@@ -45,6 +45,34 @@ public class GestionErgosum {
         }
     }
 
+    public List<Jouet> listerTousLesJouets(String search) throws MonException{
+        List<Object> rs;
+        List<Jouet> mesJouets = new ArrayList<Jouet>();
+        String request = "SELECT * FROM jouet WHERE libelle LIKE %" + search + "%;";
+        int index = 0;
+        try {
+            rs = DialogueBd.lecture(request);
+
+            while (index < rs.size()) {
+                // On crée un stage
+                Jouet unJ = new Jouet();
+                // il faut redecouper la liste pour retrouver les lignes
+                unJ.setNumero(rs.get(index).toString());
+                unJ.setLibelle(rs.get(index + 3).toString());
+                unJ.setCategorie(new Categorie(rs.get(index + 1).toString()));
+                unJ.setTrancheage(new Trancheage(rs.get(index + 2).toString()));
+                // On incrémente tous les 4 champs
+                index = index + 4;
+                mesJouets.add(unJ);
+            }
+            return mesJouets;
+
+        } catch (MonException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
     public List<Categorie> listerToutesLesCategories() throws MonException {
         List<Object> rs;
         List<Categorie> mesCategories = new ArrayList<Categorie>();

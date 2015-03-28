@@ -2,8 +2,13 @@
     margin: 10px 0px 10px 50px;
 }
 
-.table-responsive{
-    padding-right: 50px;
+body{
+    background-color: #ECECEC;
+}
+
+.navbar-inverse{
+    background-color: #4285f4;
+    font-size: 16px;
 }
 
 #conteneurFooter{
@@ -11,7 +16,11 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    color: #858585;
+    color: #b2dbfb;
+}
+
+.navbar-fixed-bottom{
+    min-height: 44px;
 }
 
 .table-bordered>tbody>tr>td,
@@ -24,8 +33,17 @@
 }
 
 .first-row{
-    margin-top: 55px;
-    margin-bottom: 55px;
+    margin: 85px auto 55px;
+    max-width: 1000px;
+    padding: 10px;
+    background-color: #ffffff;
+    -webkit-box-shadow: -5px 0px 5px -5px #9b9b9b;
+    -moz-box-shadow: -5px 0px 5px -5px #9b9b9b;
+    box-shadow: -5px 0px 5px -5px #9b9b9b;
+}
+
+.checkbox{
+    margin-left: 30px;
 }
 
 .circle-buttons{
@@ -42,6 +60,9 @@
     bottom: 60px;
     right: 24px;
     margin-top: 10px;
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 }
 
 .circle-button>span{
