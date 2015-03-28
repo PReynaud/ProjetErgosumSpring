@@ -277,6 +277,19 @@ public class MultiControlleur extends MultiActionController {
         return new ModelAndView(destinationPage);
     }
 
+    @RequestMapping(value="rechercherJouet")
+    public ModelAndView rechercherJouet(HttpServletRequest request,
+                                             HttpServletResponse response) throws Exception {
+        String destinationPage = "/Erreur";
+        String search = request.getParameter("search");
+
+        GestionErgosum unService = new GestionErgosum();
+        request.setAttribute("mesJouets", unService.listerTousLesJouets()); //TODO rajouter la string
+        destinationPage = "/ListeJouets";
+
+        return new ModelAndView(destinationPage);
+    }
+
 
 }
 
