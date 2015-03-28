@@ -48,7 +48,7 @@ public class GestionErgosum {
     public List<Jouet> listerTousLesJouets(String search) throws MonException{
         List<Object> rs;
         List<Jouet> mesJouets = new ArrayList<Jouet>();
-        String request = "SELECT * FROM jouet WHERE libelle LIKE %" + search + "%;";
+        String request = "SELECT * FROM jouet WHERE libelle LIKE '%" + search + "%';";
         int index = 0;
         try {
             rs = DialogueBd.lecture(request);

@@ -284,7 +284,7 @@ public class MultiControlleur extends MultiActionController {
         String search = request.getParameter("search");
 
         GestionErgosum unService = new GestionErgosum();
-        request.setAttribute("mesJouets", unService.listerTousLesJouets()); //TODO rajouter la string
+        request.setAttribute("mesJouets", unService.listerTousLesJouets(search));
         destinationPage = "/ListeJouets";
 
         return new ModelAndView(destinationPage);
