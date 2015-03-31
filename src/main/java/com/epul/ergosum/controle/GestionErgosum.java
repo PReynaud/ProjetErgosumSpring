@@ -272,6 +272,8 @@ public class GestionErgosum {
         request.append("', '");
         request.append(unJouet.getLibelle());
         request.append("');");
+
+        //TODO faire l'ajout aux catalogues du champ comportes
         try {
             DialogueBd.insertionBD(request.toString());
         } catch (MonException e) {

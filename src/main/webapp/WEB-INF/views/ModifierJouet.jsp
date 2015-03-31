@@ -28,13 +28,13 @@
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
                 <div class="col-sm-2">
-                    <input type="text" name="id" id="id" placeholder="Numéro du jouet" required/>
+                    <input type="text" name="id" id="id" value="${jouet.numero}" placeholder="Numéro du jouet" required/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">Libellé</div>
                 <div class="col-sm-2">
-                    <input type="text" name="libelle" id="libelle" placeholder="Libellé du jouet" required/>
+                    <input type="text" name="libelle" id="libelle" value="${jouet.libelle}" placeholder="Libellé du jouet" required/>
                 </div>
             </div>
             <div class="row">
@@ -42,7 +42,12 @@
                 <div class="col-sm-2">
                     <select name="codecateg" id="codecateg">
                         <c:forEach items="${categories}" var="item">
-                            <option value="${item.getCodecateg()}">${item.getLibcateg()}</option>
+                            <option value="${item.getCodecateg()}"
+                                    <c:if test="${item.getCodecateg() == jouet.categorie.getCodecateg()}">
+                                        selected="selected"
+                                    </c:if>
+                                >${item.getLibcateg()}
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
@@ -52,7 +57,11 @@
                 <div class="col-sm-2">
                     <select name="codetranche" id="codetranche">
                         <c:forEach items="${tranches}" var="item">
-                            <option value="${item.getCodetranche()}">${item.getCodetranche()}</option>
+                            <option value="${item.getCodetranche()}"
+                                    <c:if test="${item.getCodetranche() == jouet.trancheage.getCodetranche()}">
+                                        selected="selected"
+                                    </c:if>
+                            >${item.getCodetranche()}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -62,7 +71,11 @@
                 <div class="col-sm-2">
                     <select name="codecatalogue" id="codecatalogue">
                         <c:forEach items="${catalogues}" var="item">
-                            <option value="${item.getAnnee()}">${item.getAnnee()}</option>
+                            <option value="${item.getAnnee()}"
+                                    <c:if test="${item.annee == 0}">
+                                        selected="selected"
+                                    </c:if>
+                            >${item.annee}</option>
                         </c:forEach>
                     </select>
                 </div>

@@ -76,6 +76,7 @@ public class MultiControlleur extends MultiActionController {
         request.setAttribute("categories", unService.listerToutesLesCategories());
         request.setAttribute("tranches", unService.listerToutesLesTranches());
         request.setAttribute("catalogues", unService.listerTousLesCatalogues());
+        request.setAttribute("nbCatalogues", request.getParameter("nbCatalogues"));
 
 
         destinationPage = "/AjouterJouet";
@@ -133,6 +134,7 @@ public class MultiControlleur extends MultiActionController {
         request.setAttribute("jouet", unJouet);
         request.setAttribute("categories", unService.listerToutesLesCategories());
         request.setAttribute("tranches", unService.listerToutesLesTranches());
+        request.setAttribute("catalogues", unService.listerTousLesCatalogues());
         destinationPage = "/ModifierJouet";
 
 
@@ -179,12 +181,18 @@ public class MultiControlleur extends MultiActionController {
                 unService.modifier(unJouet);
             } else
             {
-                Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
-                int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
-                if (quantiteDistribution>0)
-                {
-                    leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
-                    unService.modifierCatalogue(leCatalogue);
+                String nbCatalogues = request.getParameter("nb-catalogues");
+                for(int i = 1; i <= Integer.parseInt(nbCatalogues); i++){
+                    String res = request.getParameter("codecatalogue" + i);
+                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue" + i));
+
+                    int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution" + i));
+                    if (quantiteDistribution>0)
+                    {
+                        leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
+                        unService.modifierCatalogue(leCatalogue);
+                    }
+                    unJouet.ajouterComportes(leCatalogue, quantiteDistribution);
                 }
                 unService.ajouter(unJouet);
             }
@@ -221,7 +229,7 @@ public class MultiControlleur extends MultiActionController {
                 unService.effacer(ids);
             }
             // preparation de la liste
-            request.setAttribute("mesJouets", unService.listerTousLesJouets(0, 0));
+            request.setAttribute("mesJouets", unService.listerTousLesJouets());
 
             destinationPage = "/ListeJouets";
         }

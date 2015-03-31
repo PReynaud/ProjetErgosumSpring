@@ -24,6 +24,7 @@
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
     <form method="get" action="sauverJouet">
         <input type="hidden" name="type" value="ajout"  id="type"/>
+        <input type="hidden" name="nb-catalogues" value="1"  id="nb-catalogues"/>
         <div class="row">
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
@@ -56,21 +57,28 @@
                         </c:forEach>
                     </select>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-2">Catalogues</div>
                 <div class="col-sm-2">
-                    <select name="codecatalogue" id="codecatalogue">
-                        <c:forEach items="${catalogues}" var="item">
-                            <option value="${item.getAnnee()}">${item.getAnnee()}</option>
-                        </c:forEach>
-                    </select>
+                    <button type="button" class="btn-default" id="add-catalogues">Ajouter un catalogue</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">Quantités distribuées</div>
-                <div class="col-sm-2">
-                    <input type="text" name="quantiteDistribution" id="quantiteDistribution" placeholder="Quantité distribuée" required/>
+            <div class="root-catalogues">
+                <div class="row separate-field">
+                    <div class="row">
+                        <div class="col-sm-2">Catalogues</div>
+                        <div class="col-sm-2">
+                            <select class="selectCatalogue" name="codecatalogue1" id="codecatalogue1">
+                                <c:forEach items="${catalogues}" var="item">
+                                    <option value="${item.getAnnee()}">${item.getAnnee()}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">Quantités distribuées</div>
+                        <div class="col-sm-2">
+                            <input class="quantiteCatalogue" type="text" name="quantiteDistribution1" id="quantiteDistribution1" placeholder="Quantité distribuée" required/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -78,9 +86,9 @@
                     <input type="submit" name="ajouter" value="Ajouter"/>
                 </div>
             </div>
-
         </div>
     </form>
+    <script src="resources/js/lines.js" type="text/javascript"></script>
 </div>
 
 <jsp:include page='footer.jsp' flush="true"/>

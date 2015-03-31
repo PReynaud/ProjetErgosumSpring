@@ -74,4 +74,8 @@ public class Jouet implements java.io.Serializable {
 		this.comportes = comportes;
 	}
 
+	public void ajouterComportes(Catalogue catalogue, int quantite){
+		this.comportes.add(new Comporte(new ComporteId(catalogue.getAnnee(), this.getNumero()), this, catalogue, quantite));
+	}
+
 }
