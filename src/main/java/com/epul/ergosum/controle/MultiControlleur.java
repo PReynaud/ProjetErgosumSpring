@@ -269,7 +269,8 @@ public class MultiControlleur extends MultiActionController {
         String annee = request.getParameter("annee");
         GestionErgosum unService = new GestionErgosum();
 
-        HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
+        HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(annee);
+        request.setAttribute("mesCatalogues", unService.listerCatalogueQuantites());
         request.setAttribute("dictionnaire", hashCatInt);
         request.setAttribute("anneecatalogue", annee);
         destinationPage = "/AfficherDictionnaire";

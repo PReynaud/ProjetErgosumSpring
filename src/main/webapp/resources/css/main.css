@@ -51,6 +51,7 @@ body{
 
 select{
     width: 182px;
+    height:36px;
 }
 
 .checkbox{

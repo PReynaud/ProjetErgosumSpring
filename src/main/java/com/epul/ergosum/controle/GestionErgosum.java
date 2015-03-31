@@ -327,7 +327,7 @@ public class GestionErgosum {
     public List<CatalogueQuantites> listerCatalogueQuantites() throws MonException{
         List<Object> rc;
         List<CatalogueQuantites> mesCatalogues = new ArrayList<CatalogueQuantites>();
-        String request1 = "SELECT c.annee, c.numero, c.quantite, ca.quantiteDistribuee FROM comporte c JOIN catalogue ca ON c.annee=ca.annee";
+        String request1 = "SELECT Distinct c.annee, c.numero, c.quantite, ca.quantiteDistribuee FROM comporte c JOIN catalogue ca ON c.annee=ca.annee group by annee";
         int index = 0;
         try {
             rc = DialogueBd.lecture(request1);
@@ -351,17 +351,17 @@ public class GestionErgosum {
         HashMap<Categorie,Integer> res = new HashMap<Categorie, Integer>();
         List<Object> rc;
         int index = 0;
-        String request = "SELECT DISTINCT codecateg, b.quantiteDistribuee " +
+        String request = "SELECT codecateg, SUM(b.quantite) " +
                          "FROM categorie NATURAL JOIN (" +
-                                " SELECT codecateg, a.quantiteDistribuee " +
+                                " SELECT codecateg, a.quantite " +
                                 "FROM jouet natural join ( " +
-                                    "SELECT numero, quantiteDistribuee " +
-                                    "FROM comporte natural join catalogue where annee="+annee+") a) b;";
+                                    "SELECT numero, quantite " +
+                                    "FROM comporte where annee="+annee+") a) b group by codecateg;";
         try {
             Catalogue monCatalogue = rechercherCatalogue(annee);
             rc = DialogueBd.lecture(request);
             while (index < rc.size()) {
-                res.put(rechercherCategorie(rc.get(index).toString()), Integer.parseInt(rc.get(index).toString()));
+                res.put(rechercherCategorie(rc.get(index).toString()), Integer.parseInt(rc.get(index+1).toString()));
                 index+=2;
             }
             return res;
