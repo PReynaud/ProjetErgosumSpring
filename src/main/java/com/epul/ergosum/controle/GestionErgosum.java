@@ -7,6 +7,7 @@ import com.epul.ergosum.persistance.DialogueBd;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class GestionErgosum {
     public List<Jouet> listerTousLesJouets() throws MonException, ParseException {
         List<Object> rs;
         List<Jouet> mesJouets = new ArrayList<Jouet>();
-        String request = "SELECT * FROM jouet;";
+        String request = "SELECT * FROM jouet order by numero*1;";
         int index = 0;
         try {
             rs = DialogueBd.lecture(request);
@@ -249,7 +250,7 @@ public class GestionErgosum {
 
     public void modifierCatalogue(Catalogue leCatalogue) throws MonException{
         StringBuilder request = new StringBuilder();
-        request.append("UPDATE jouet SET quantiteDistribuee=");
+        request.append("UPDATE catalogue SET quantiteDistribuee=");
         request.append(leCatalogue.getQuantiteDistribuee());
         request.append(" where annee=");
         request.append(leCatalogue.getAnnee());
@@ -262,20 +263,37 @@ public class GestionErgosum {
     }
 
     public void ajouter(Jouet unJouet) throws MonException{
-        StringBuilder request = new StringBuilder();
-        request.append("INSERT INTO jouet (numero,codecateg,codetranche,libelle) values ('");
-        request.append(unJouet.getNumero());
-        request.append("', '");
-        request.append(unJouet.getCategorie().getCodecateg());
-        request.append("', '");
-        request.append(unJouet.getTrancheage().getCodetranche());
-        request.append("', '");
-        request.append(unJouet.getLibelle());
-        request.append("');");
+        ArrayList<StringBuilder> requests = new ArrayList<StringBuilder>();
+        StringBuilder request2 = new StringBuilder();
+        Iterator i=unJouet.getComportes().iterator();
+        while (i.hasNext()){
+            Comporte comporte = (Comporte)i.next();
+            StringBuilder request = new StringBuilder();
+            request.append("INSERT INTO comporte (annee,numero,quantite) values (");
+            request.append(comporte.getId().getAnnee());
+            request.append(", '");
+            request.append(comporte.getId().getNumero());
+            request.append("', ");
+            request.append(comporte.getQuantite());
+            request.append(");");
+            requests.add(request);
+        }
+
+        request2.append("INSERT INTO jouet (numero,codecateg,codetranche,libelle) values ('");
+        request2.append(unJouet.getNumero());
+        request2.append("', '");
+        request2.append(unJouet.getCategorie().getCodecateg());
+        request2.append("', '");
+        request2.append(unJouet.getTrancheage().getCodetranche());
+        request2.append("', '");
+        request2.append(unJouet.getLibelle());
+        request2.append("');");
 
         //TODO faire l'ajout aux catalogues du champ comportes
         try {
-            DialogueBd.insertionBD(request.toString());
+            DialogueBd.insertionBD(request2.toString());
+            for(StringBuilder request:requests)
+                DialogueBd.insertionBD(request.toString());
         } catch (MonException e) {
             System.out.println(e.getMessage());
             throw e;
