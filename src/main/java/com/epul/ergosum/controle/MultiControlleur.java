@@ -248,15 +248,14 @@ public class MultiControlleur extends MultiActionController {
     public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String destinationPage = "/Erreur";
-        String id = request.getParameter("id");
         GestionErgosum unService = new GestionErgosum();
 
-        if(request.getParameter("anneeDebut") == null){
-            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites());
+        request.setAttribute("catalogues", unService.listerCatalogueQuantites());
+        if(request.getParameter("anneeDebut") != null && request.getParameter("anneeFin") != null){
+            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("anneeFin"))));
         }
         else{
-            // preparation de la liste
-            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
+            request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites());
         }
        destinationPage = "/AfficherCatalogues";
 
