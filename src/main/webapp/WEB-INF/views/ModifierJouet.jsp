@@ -13,6 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
     <script src="resources/js/main.js" type="text/javascript"></script>
+    <script src="resources/js/lines.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -66,32 +67,31 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">Catalogues</div>
-                <div class="col-sm-2">
-                    <select name="codecatalogue" id="codecatalogue">
-                        <c:forEach items="${catalogues}" var="item">
-                            <option value="${item.getAnnee()}"
-                                    <c:if test="${item.annee == 0}">
-                                        selected="selected"
-                                    </c:if>
-                            >${item.annee}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+            <div class="root-catalogues">
+                ${jouet.getTailleComportes()}
+                <c:forEach var="i" begin="1" end="${jouet.getTailleComportes()}">
+                    <div class="row separate-field">
+                        <div class="row">
+                            <div class="col-sm-2">Catalogues</div>
+                            <div class="col-sm-2">
+                                <select class="selectCatalogue" name="codecatalogue1" id="codecatalogue1">
+                                    <c:forEach items="${catalogues}" var="item">
+                                        <option value="${item.getAnnee()}">${item.getAnnee()}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">Quantités distribuées</div>
+                            <div class="col-sm-2">
+                                <input class="quantiteCatalogue" type="text" value=""
+                                       name="quantiteDistribution1" id="quantiteDistribution1"
+                                       placeholder="Quantité distribuée" required/>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <div class="row">
-                <div class="col-sm-2">Quantités distribuées</div>
-                <div class="col-sm-2">
-                    <input type="text" name="quantiteDistribution" id="quantiteDistribution" placeholder="Quantité distribuée" required/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-2 col-sm-2">
-                    <input type="submit" name="ajouter" value="Ajouter"/>
-                </div>
-            </div>
-
         </div>
     </form>
 </div>
