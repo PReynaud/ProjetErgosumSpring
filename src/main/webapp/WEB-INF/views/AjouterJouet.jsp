@@ -27,12 +27,6 @@
         <input type="hidden" name="nb-catalogues" value="1"  id="nb-catalogues"/>
         <div class="row">
             <div class="row">
-                <div class="col-sm-2">Numéro</div>
-                <div class="col-sm-2">
-                    <input type="text" name="id" id="id" placeholder="Numéro du jouet" required/>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-sm-2">Libellé</div>
                 <div class="col-sm-2">
                     <input type="text" name="libelle" id="libelle" placeholder="Libellé du jouet" required/>
@@ -50,7 +44,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-2">Tranche d'âge</div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <select name="codetranche" id="codetranche">
                         <c:forEach items="${tranches}" var="item">
                             <option value="${item.getCodetranche()}">${item.getCodetranche()}</option>
@@ -66,7 +60,7 @@
                     <div class="row">
                         <div class="col-sm-2">Catalogues</div>
                         <div class="col-sm-2">
-                            <select class="selectCatalogue" name="codecatalogue1" id="codecatalogue1">
+                            <select class="selectCatalogue" name="codeCatalogue1" id="codeCatalogue1">
                                 <c:forEach items="${catalogues}" var="item">
                                     <option value="${item.getAnnee()}">${item.getAnnee()}</option>
                                 </c:forEach>

@@ -5,6 +5,7 @@ import com.epul.ergosum.metier.*;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import com.epul.ergosum.meserreurs.*;
@@ -160,14 +161,15 @@ public class MultiControlleur extends MultiActionController {
             // courante
             // Ensuite on peut modifier ses champs
 
-            if (request.getParameter("type").equals("ajout"))
+            if (request.getParameter("type").equals("ajout")){
                 unJouet = new Jouet();
+                List<Jouet>jouets = unService.listerTousLesJouets();
+                unJouet.setNumero(((Integer) (Integer.parseInt(jouets.get(jouets.size() - 1).getNumero()) + 1)).toString());
+        }
             else
             { // on récupère le jouet courant
-
                 unJouet = unService.rechercherJouet(id);
             }
-            unJouet.setNumero(request.getParameter("id"));
             unJouet.setLibelle(request.getParameter("libelle"));
             Categorie uneCateg = unService.rechercherCategorie(request.getParameter("codecateg"));
             unJouet.setCategorie(uneCateg);
@@ -183,8 +185,7 @@ public class MultiControlleur extends MultiActionController {
             {
                 String nbCatalogues = request.getParameter("nb-catalogues");
                 for(int i = 1; i <= Integer.parseInt(nbCatalogues); i++){
-                    String res = request.getParameter("codecatalogue" + i);
-                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue" + i));
+                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codeCatalogue" + i));
 
                     int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution" + i));
                     if (quantiteDistribution>0)
