@@ -74,9 +74,13 @@
                         <div class="row">
                             <div class="col-sm-2">Catalogues</div>
                             <div class="col-sm-2">
-                                <select class="selectCatalogue" name="codecatalogue1" id="codecatalogue1">
+                                <select class="selectCatalogue" name="codecatalogue${i}" id="codecatalogue${i}">
                                     <c:forEach items="${catalogues}" var="item">
-                                        <option value="${item.getAnnee()}">${item.getAnnee()}</option>
+                                        <option value="${item.getAnnee()}"
+                                            <c:if test="jouet.getComportes()[i].catalogue.annee == item.getAnnee()">
+                                                selected="selected"
+                                            </c:if>
+                                        >${item.getAnnee()}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -85,8 +89,9 @@
                             <div class="col-sm-2">Quantités distribuées</div>
                             <div class="col-sm-2">
                                 <input class="quantiteCatalogue" type="text" value=""
-                                       name="quantiteDistribution1" id="quantiteDistribution1"
-                                       placeholder="Quantité distribuée" required/>
+                                       name="quantiteDistribution${i}" id="quantiteDistribution${i}"
+                                       placeholder="Quantité distribuée"
+                                       value="${jouet.getComportes()[i].catalogue.quantiteDistribuee}" required/>
                             </div>
                         </div>
                     </div>
