@@ -24,7 +24,7 @@
 
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
     <form method="get" action="sauverJouet">
-        <input type="hidden" name="type" value="ajout"  id="type"/>
+        <input type="hidden" name="type" value="modif"  id="type"/>
         <div class="row">
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
@@ -66,20 +66,23 @@
                         </c:forEach>
                     </select>
                 </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn-default" id="add-catalogues">Ajouter un catalogue</button>
+                </div>
             </div>
             <div class="root-catalogues">
-                <c:forEach var="i" begin="1" end="${jouet.getTailleComportes()}">
+                <c:forEach var="i" begin="0" end="${jouet.getTailleComportes() - 1}">
                     <div class="row separate-field">
                         <div class="row">
                             <div class="col-sm-2">Catalogues</div>
                             <div class="col-sm-2">
-                                <select class="selectCatalogue" name="codecatalogue${i}" id="codecatalogue${i}">
+                                <select class="selectCatalogue" name="codecatalogue${i + 1}" id="codecatalogue${i + 1}">
                                     <c:forEach items="${catalogues}" var="item">
                                         <option value="${item.annee}"
-                                            <c:if test="${jouet.comportes[i].catalogue.annee == item.annee}">
-                                                selected="selected"
-                                            </c:if>
-                                        >${item.annee}</option>
+                                                <c:if test="${jouet.comportes[i].catalogue.annee == item.annee}">
+                                                    selected="selected"
+                                                </c:if>
+                                                >${item.annee}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -87,10 +90,10 @@
                         <div class="row">
                             <div class="col-sm-2">Quantités distribuées</div>
                             <div class="col-sm-2">
-                                <input class="quantiteCatalogue" type="text" value=""
-                                       name="quantiteDistribution${i}" id="quantiteDistribution${i}"
+                                <input class="quantiteCatalogue" type="text" value="${jouet.comportes[i].catalogue.quantiteDistribuee}"
+                                       name="quantiteDistribution${i + 1}" id="quantiteDistribution${i + 1}"
                                        placeholder="Quantité distribuée"
-                                       value="${jouet.comportes[i].catalogue.quantiteDistribuee}" required/>
+                                       required/>
                             </div>
                         </div>
                     </div>

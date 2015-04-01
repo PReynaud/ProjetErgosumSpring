@@ -2,6 +2,7 @@ package com.epul.ergosum.metier;
 
 // Generated 24 avr. 2014 11:38:54 by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,19 +15,21 @@ public class Jouet implements java.io.Serializable {
 	private Categorie categorie;
 	private Trancheage trancheage;
 	private String libelle;
-	private Set comportes = new HashSet(0);
+	private ArrayList comportes;
 
 	public Jouet() {
+		this.comportes = new ArrayList();
 	}
 
 	public Jouet(String numero, Categorie categorie, Trancheage trancheage) {
 		this.numero = numero;
 		this.categorie = categorie;
 		this.trancheage = trancheage;
+		this.comportes = new ArrayList();
 	}
 
 	public Jouet(String numero, Categorie categorie, Trancheage trancheage,
-			String libelle, Set comportes) {
+			String libelle, ArrayList comportes) {
 		this.numero = numero;
 		this.categorie = categorie;
 		this.trancheage = trancheage;
@@ -66,11 +69,11 @@ public class Jouet implements java.io.Serializable {
 		this.libelle = libelle;
 	}
 
-	public Set getComportes() {
+	public ArrayList getComportes() {
 		return this.comportes;
 	}
 
-	public void setComportes(Set comportes) {
+	public void setComportes(ArrayList comportes) {
 		this.comportes = comportes;
 	}
 
