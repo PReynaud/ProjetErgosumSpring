@@ -326,20 +326,21 @@ public class GestionErgosum {
         }
     }
 
-    public Object listerCatalogueQuantites(int anneeDebut, int nbAnnees) throws MonException{
+    public Object listerCatalogueQuantites(int anneeDebut, int anneeFin) throws MonException{
         List<Object> rc;
-        List<Catalogue> mesCatalogues = new ArrayList<Catalogue>();
-        int annee_fin = anneeDebut + nbAnnees;
-        String request = "SELECT * FROM catalogue where annee>='" + anneeDebut + "' AND annee<='"+annee_fin+"';";
+        List<CatalogueQuantites> mesCatalogues = new ArrayList<CatalogueQuantites>();
+        String request = "SELECT DISTINCT c.annee, c.numero, c.quantite, ca.quantiteDistribuee FROM comporte c JOIN catalogue ca ON c.annee=ca.annee" +
+                " where ca.annee>='" + anneeDebut + "' AND ca.annee<='"+anneeFin+"' group by annee;";
         int index = 0;
         try {
             rc = DialogueBd.lecture(request);
 
             while (index < rc.size()) {
-                Catalogue monCatalogue = new Catalogue();
-                monCatalogue.setAnnee(Integer.parseInt(rc.get(index).toString()));
-                monCatalogue.setQuantiteDistribuee(Integer.parseInt(rc.get(index + 1).toString()));
-                index = index + 2;
+                CatalogueQuantites monCatalogue = new CatalogueQuantites();
+                monCatalogue.setId(rc.get(index).toString());
+                monCatalogue.setQuantite(rc.get(index + 2).toString());
+                monCatalogue.setQuantiteDistribuee(rc.get(index + 3).toString());
+                index = index + 4;
                 mesCatalogues.add(monCatalogue);
             }
             return mesCatalogues;

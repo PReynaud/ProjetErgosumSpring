@@ -16,6 +16,27 @@
 <jsp:include page='header.jsp' flush="true"/>
 
 <div class="row first-row">
+    <div class="row">
+        <form method="get" action="afficherCatalogues">
+            <div class="col-sm-3">
+                <select name="anneeDebut" id="anneeDebut">
+                    <c:forEach items="${catalogues}" var="item">
+                        <option value="${item.id}">${item.id}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <select name="anneeFin" id="anneeFin">
+                    <c:forEach items="${catalogues}" var="item2">
+                        <option value="${item2.id}">${item2.id}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <input type="submit" value="Filtrer"/>
+            </div>
+        </form>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -28,12 +49,12 @@
             </thead>
 
             <tbody>
-            <c:forEach items="${mesCataloguesQuantites}" var="item">
+            <c:forEach items="${mesCataloguesQuantites}" var="item3">
                 <tr>
-                    <td>${item.id}</td>
-                    <td>${item.quantiteDistribuee}</td>
-                    <td>${item.quantite}</td>
-                    <td>${item.quantiteDistribuee}</td>
+                    <td>${item3.id}</td>
+                    <td>${item3.quantiteDistribuee}</td>
+                    <td>${item3.quantite}</td>
+                    <td>${item3.quantiteDistribuee}</td>
                 </tr>
             </c:forEach>
             </tbody>
