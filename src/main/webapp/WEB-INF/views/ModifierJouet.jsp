@@ -13,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="resources/js/jquery-ui.js" type="text/javascript"></script>
     <script src="resources/js/main.js" type="text/javascript"></script>
-    <script src="resources/js/lines.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -102,6 +101,7 @@
         </div>
     </form>
 </div>
+<script src="resources/js/lines.js" type="text/javascript"></script>
 
 <jsp:include page='footer.jsp' flush="true"/>
 </body>
