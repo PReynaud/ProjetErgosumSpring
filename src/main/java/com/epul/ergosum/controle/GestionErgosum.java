@@ -146,19 +146,25 @@ public class GestionErgosum {
     }
 
     public Jouet rechercherJouet(String id) throws MonException {
-        List<Object> rs;
+        List<Object> rs, rs2;
         Jouet monJouet = new Jouet();
-        String request = "SELECT * FROM jouet where numero=" + id + ";";
+        String request = "SELECT * FROM jouet where numero=" + id + ";",
+            request2 = "SELECT b.annee, quantite, b.quantiteDistribuee from comporte natural join catalogue b where numero='"+id+"';";
         int index = 0;
         try {
             rs = DialogueBd.lecture(request);
-
-            if (index < rs.size()) {
+            rs2 = DialogueBd.lecture(request2);
+            if (rs.size()>=3) {
                 // il faut redecouper la liste pour retrouver les lignes
                 monJouet.setNumero(id);
-                monJouet.setLibelle(rs.get(index + 3).toString());
-                monJouet.setCategorie(new Categorie(rs.get(index + 1).toString()));
-                monJouet.setTrancheage(new Trancheage(rs.get(index + 2).toString()));
+                monJouet.setLibelle(rs.get(3).toString());
+                monJouet.setCategorie(new Categorie(rs.get(1).toString()));
+                monJouet.setTrancheage(new Trancheage(rs.get(2).toString()));
+                while (index<rs2.size()){
+                    Catalogue catalogue = new Catalogue(Integer.parseInt(rs2.get(index).toString()),Integer.parseInt(rs2.get(index + 2).toString()));
+                    monJouet.ajouterComportes(catalogue,Integer.parseInt(rs2.get(index+1).toString()));
+                    index+=3;
+                }
             }
             return monJouet;
 

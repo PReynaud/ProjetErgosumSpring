@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
                 <div class="col-sm-2">
-                    <input type="text" name="id" id="id" value="${jouet.numero}" placeholder="Numéro du jouet" required/>
+                    <input type="text" name="id" id="id" value="${jouet.numero}" placeholder="Numéro du jouet" disabled="disabled"/>
                 </div>
             </div>
             <div class="row">
@@ -68,7 +68,6 @@
                 </div>
             </div>
             <div class="root-catalogues">
-                ${jouet.getTailleComportes()}
                 <c:forEach var="i" begin="1" end="${jouet.getTailleComportes()}">
                     <div class="row separate-field">
                         <div class="row">
@@ -76,11 +75,11 @@
                             <div class="col-sm-2">
                                 <select class="selectCatalogue" name="codecatalogue${i}" id="codecatalogue${i}">
                                     <c:forEach items="${catalogues}" var="item">
-                                        <option value="${item.getAnnee()}"
-                                            <c:if test="jouet.getComportes()[i].catalogue.annee == item.getAnnee()">
+                                        <option value="${item.annee}"
+                                            <c:if test="${jouet.comportes[i].catalogue.annee == item.annee}">
                                                 selected="selected"
                                             </c:if>
-                                        >${item.getAnnee()}</option>
+                                        >${item.annee}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -91,7 +90,7 @@
                                 <input class="quantiteCatalogue" type="text" value=""
                                        name="quantiteDistribution${i}" id="quantiteDistribution${i}"
                                        placeholder="Quantité distribuée"
-                                       value="${jouet.getComportes()[i].catalogue.quantiteDistribuee}" required/>
+                                       value="${jouet.comportes[i].catalogue.quantiteDistribuee}" required/>
                             </div>
                         </div>
                     </div>
