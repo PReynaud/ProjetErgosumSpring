@@ -13,10 +13,13 @@ import com.epul.ergosum.meserreurs.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -165,7 +168,7 @@ public class MultiControlleur extends MultiActionController {
                 unJouet = new Jouet();
                 List<Jouet>jouets = unService.listerTousLesJouets();
                 unJouet.setNumero(((Integer) (Integer.parseInt(jouets.get(jouets.size() - 1).getNumero()) + 1)).toString());
-        }
+            }
             else
             { // on récupère le jouet courant
                 unJouet = unService.rechercherJouet(id);
@@ -176,27 +179,28 @@ public class MultiControlleur extends MultiActionController {
 
             Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("codetranche"));
             unJouet.setTrancheage(uneTranche);
+            unJouet.setNumero(id);
 
             // sauvegarde du jouet
             if (request.getParameter("type").equals("modif"))
             {
-                unService.modifier(unJouet);
-            } else
-            {
-                String nbCatalogues = request.getParameter("nb-catalogues");
-                for(int i = 1; i <= Integer.parseInt(nbCatalogues); i++){
-                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codeCatalogue" + i));
-
-                    int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution" + i));
-                    if (quantiteDistribution>0)
-                    {
-                        leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
-                        unService.modifierCatalogue(leCatalogue);
-                    }
-                    unJouet.ajouterComportes(leCatalogue, quantiteDistribution);
-                }
-                unService.ajouter(unJouet);
+                unService.effacer(new String[]{unJouet.getNumero()});
+                List<Jouet>jouets = unService.listerTousLesJouets();
+                unJouet.setNumero(((Integer) (Integer.parseInt(jouets.get(jouets.size() - 1).getNumero()) + 1)).toString());
             }
+            String nbCatalogues = request.getParameter("nb-catalogues");
+            for(int i = 1; i <= Integer.parseInt(nbCatalogues); i++){
+                Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codeCatalogue" + i));
+
+                int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution" + i));
+                if (quantiteDistribution>0)
+                {
+                    leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
+                    unService.modifierCatalogue(leCatalogue);
+                }
+                unJouet.ajouterComportes(leCatalogue, quantiteDistribution);
+            }
+            unService.ajouter(unJouet);
             request.setAttribute("mesJouets", unService.listerTousLesJouets());
             destinationPage = "/ListeJouets";
         } catch (Exception e)
@@ -299,7 +303,11 @@ public class MultiControlleur extends MultiActionController {
         return new ModelAndView(destinationPage);
     }
 
-
+    @RequestMapping("error")
+    public ModelAndView erreur(HttpServletRequest request,
+                               HttpServletResponse response){
+        String destinationPage = "/Erreur";
+        return new ModelAndView(destinationPage);
+    }
 }
 
-	

@@ -24,11 +24,12 @@
     <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
     <form method="get" action="sauverJouet">
         <input type="hidden" name="type" value="modif"  id="type"/>
+        <input type="hidden" name="nb-catalogues" value="${Math.max(jouet.getTailleComportes() - 1, 0)}"  id="nb-catalogues"/>
         <div class="row">
             <div class="row">
                 <div class="col-sm-2">Numéro</div>
                 <div class="col-sm-2">
-                    <input type="text" name="id" id="id" value="${jouet.numero}" placeholder="Numéro du jouet" disabled="disabled"/>
+                    <input type="text" name="id" id="id" value="${jouet.numero}" placeholder="Numéro du jouet" required/>
                 </div>
             </div>
             <div class="row">
@@ -70,7 +71,7 @@
                 </div>
             </div>
             <div class="root-catalogues">
-                <c:forEach var="i" begin="0" end="${jouet.getTailleComportes() - 1}">
+                <c:forEach var="i" begin="0" end="${Math.max(jouet.getTailleComportes() - 1, 0)}">
                     <div class="row separate-field">
                         <div class="row">
                             <div class="col-sm-2">Catalogues</div>
@@ -97,6 +98,11 @@
                         </div>
                     </div>
                 </c:forEach>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-2">
+                    <input type="submit" name="modifier" value="Modifier"/>
+                </div>
             </div>
         </div>
     </form>

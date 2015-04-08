@@ -19,11 +19,20 @@
 <jsp:include page='header.jsp' flush="true"/>
 
 <div class="row first-row">
-    <h3>Gestion des jouets</h3>
-    <h2> Nous sommes le <%= DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(new Date()) %></h2>
-    <h5>Gestion des jouets à partir d'une base de données.</h5>
-    <h5>Cette application fonctionne à l'aide de Spring et tourne sous un serveur Tomcat.
-        La vue a été réalisée à l'aide de Bootstrap, le JavaScript à l'aide de JQuery</h5>
+    <div class="row">
+        <div class="col-sm-9">
+            <h3>Gestion des jouets</h3>
+            <h4> Nous sommes le <%= DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(new Date()) %></h4>
+        </div>
+        <div class="col-sm-3">
+            <img class="img-responsive" src="resources/images/clown1.jpg" alt="Clown"/>
+        </div>
+    </div>
+    <div class="row">
+        <h5>Gestion des jouets à partir d'une base de données.</h5>
+        <h5>Cette application fonctionne à l'aide de Spring et tourne sous un serveur Tomcat.
+            La vue a été réalisée à l'aide de Bootstrap, le JavaScript à l'aide de JQuery</h5>
+    </div>
 </div>
 <jsp:include page='footer.jsp' flush="true"/>
 
